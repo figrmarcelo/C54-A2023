@@ -8,7 +8,6 @@ import android.os.Bundle;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -31,24 +30,24 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        public int nbLignes() throws Exception {
-            BufferedReader br = null;
-            int compteur = 0;
-            try {
-                FileInputStream fis = openFileInput("annexe1b.txt");
-                InputStreamReader isr = new InputStreamReader(fis);
-                br = new BufferedReader(isr);
+    public int nbLignes() throws Exception {
+        BufferedReader br = null;
+        int compteur = 0;
+        try {
+            FileInputStream fis = openFileInput("annexe1b.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            br = new BufferedReader(isr);
 
-                while (br.readLine() != null) {
-                    compteur++;
-                }
-
-            } finally {
-                fermerFlux(br);
-                return compteur;
+            while (br.readLine() != null) {
+                compteur++;
             }
 
+        } finally {
+            fermerFlux(br);
+            return compteur;
         }
+
+    }
 
     public int nbChar() throws Exception {
         BufferedReader br = null;
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             int c = br.read();
 
             while (c != -1) { //-1 veut dire fin du fichier
-                if ((char)c == 'c')
+                if ((char) c == 'c')
                     nbDeC++;
                 c = br.read();
 
@@ -93,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //sc.useDelimiter par defaut c'est un espace (charactère blanc, \r, \n #ree
     public void ecrireNom() {
         String stringAjouter = "Marcelo Figueroa";
         BufferedWriter bw = null;
@@ -103,21 +104,26 @@ public class MainActivity extends AppCompatActivity {
             bw.newLine();
             bw.write(stringAjouter);
 
-        }
-        catch (Exception fnfe){
+        } catch (Exception fnfe) {
             fnfe.printStackTrace();
-        }
-        finally {
+        } finally {
             fermerFlux(bw);
         }
     }
 
-
-        public void fermerFlux (BufferedReader br){
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    public void fermerFlux(BufferedReader br) {
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    public void fermerFlux(BufferedWriter br) {
+        try {
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
